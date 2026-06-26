@@ -139,7 +139,10 @@ echo "EASYNAS_PORT=1443" > %{buildroot}/etc/easynas/easynas.conf
 
 touch %{buildroot}/var/log/easynas/easynas.log
 
-echo "EasyNAS-%{version}" > %{buildroot}/etc/easynas/ImageVersion
+# ImageVersion identifies the OS build and is read from /etc/ImageVersion by
+# easynas.pm; it lives on the image (updates with the OS), not the config layer.
+mkdir -p %{buildroot}/etc
+echo "EasyNAS-%{version}" > %{buildroot}/etc/ImageVersion
 
 # SSH subpackage files
 cat > %{buildroot}/etc/easynas/sshd_config << 'EOF'
@@ -180,7 +183,7 @@ EOF
 %config(noreplace) /var/log/easynas/easynas.log
 /etc/zypp/repos.d
 /etc/sudoers.d/easynas
-/etc/easynas/ImageVersion
+/etc/ImageVersion
 /usr/lib/systemd/system/easynas.service
 /usr/lib/systemd/system/easynas-firstboot.service
 /easynas/easy_n_a_s.yml
