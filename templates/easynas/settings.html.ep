@@ -32,7 +32,6 @@
       <BR><BR>
       <form role="form">
        <input type=hidden name="action" value="changesettings">
-       <input type=hidden name="old_port" value="<%= $port %>">
        <div class="form-group">
         <label><%= ($TEXT->{'settings_hostname'}) %></label>
         <input class="form-control" value="<%= $hostname %>" name="hostname">

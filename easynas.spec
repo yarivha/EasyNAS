@@ -110,11 +110,17 @@ After=network.target
 [Service]
 Type=simple
 User=easynas
-ExecStart=/easynas/script/easy_nas daemon -m production -l https://*:1443?cert=/etc/easynas/easynas.cert&key=/etc/easynas/easynas.key
+Environment=EASYNAS_PORT=1443
+EnvironmentFile=-/etc/easynas/easynas.conf
+ExecStart=/easynas/script/easy_nas daemon -m production -l https://*:${EASYNAS_PORT}?cert=/etc/easynas/easynas.cert&key=/etc/easynas/easynas.key
 
 [Install]
 WantedBy=multi-user.target
 EOF
+
+# Persistent settings file (config layer). Seeded only if absent so an
+# upgrade never overwrites a user-chosen port; see %post.
+echo "EASYNAS_PORT=1443" > %{buildroot}/etc/easynas/easynas.conf
 
 touch %{buildroot}/var/log/easynas/easynas.log
 
@@ -155,6 +161,7 @@ EOF
 %files
 %config(noreplace) /etc/cron.d/easynas.cron
 %config(noreplace) /etc/easynas/easynas.lang
+%config(noreplace) /etc/easynas/easynas.conf
 %config(noreplace) /etc/easynas/addons/easynas.addons
 %config(noreplace) /var/log/easynas/easynas.log
 /etc/zypp/repos.d
