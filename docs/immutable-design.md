@@ -272,7 +272,7 @@ re-applied one of two ways:
 - [x] Fix Conflict #1 — listen port off the systemd unit (`easynas.conf`).
 - [x] Fix Conflict #2 — cron seeded on the config layer at first boot.
 - [x] Fix Conflict #3 — cert generation via first-boot service.
-- [ ] Relocate static `sshd_config` out of `/etc/easynas` (§8.2).
+- [x] Relocate static `sshd_config` out of `/etc/easynas` → `/easynas/conf` (§8.2).
 - [ ] Decide system-accounts strategy (§8.3 open decision).
 - [ ] KIWI: add `spare_part` config partition to the x86_64 profiles (§8.1).
 - [ ] Bind-mount the scattered Layer 2 paths from `config` (§8.3).

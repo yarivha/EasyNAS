@@ -144,8 +144,12 @@ touch %{buildroot}/var/log/easynas/easynas.log
 mkdir -p %{buildroot}/etc
 echo "EasyNAS-%{version}" > %{buildroot}/etc/ImageVersion
 
-# SSH subpackage files
-cat > %{buildroot}/etc/easynas/sshd_config << 'EOF'
+# SSH subpackage files.
+# sshd_config is a static addon file and lives on the OS image under
+# /easynas/conf, NOT /etc/easynas -- the config partition mounts over
+# /etc/easynas and would otherwise shadow it (see docs/immutable-design.md 8.2).
+mkdir -p %{buildroot}/easynas/conf
+cat > %{buildroot}/easynas/conf/sshd_config << 'EOF'
 AuthorizedKeysFile	.ssh/authorized_keys
 UsePAM yes
 X11Forwarding yes
@@ -165,7 +169,7 @@ Type=notify
 EnvironmentFile=-/etc/sysconfig/ssh
 ExecStartPre=/usr/sbin/sshd-gen-keys-start
 ExecStartPre=/usr/sbin/sshd -t $SSHD_OPTS
-ExecStart=/usr/sbin/sshd -f /etc/easynas/sshd_config  -D $SSHD_OPTS
+ExecStart=/usr/sbin/sshd -f /easynas/conf/sshd_config  -D $SSHD_OPTS
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=always
@@ -424,7 +428,7 @@ SSH addon for EasyNAS
 /easynas/lib/EasyNAS/Controller/ssh.pm
 /easynas/templates/easynas/ssh*
 /easynas/lang/en-en/lang_english_ssh.pl
-/etc/easynas/sshd_config
+/easynas/conf/sshd_config
 /usr/lib/systemd/system/easynas-sshd.service
 
 
