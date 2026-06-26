@@ -48,9 +48,9 @@ admin   ALL = NOPASSWD: ALL
 EOF
 chmod 440 %{buildroot}/etc/sudoers.d/easynas
 
-cat > %{buildroot}/etc/cron.d/easynas.cron << 'EOF'
-0 */6 * * *  root sleep ${RANDOM:0:2}m ;/easynas/startup/check_update.pl
-EOF
+# /etc/cron.d/easynas.cron is no longer shipped in the image; it is seeded on
+# the writable config layer by the firstboot service (see startup/firstboot.sh)
+# because the app rewrites it at runtime.
 
 echo "en-en" > %{buildroot}/etc/easynas/easynas.lang
 
@@ -118,6 +118,21 @@ ExecStart=/easynas/script/easy_nas daemon -m production -l https://*:${EASYNAS_P
 WantedBy=multi-user.target
 EOF
 
+cat > %{buildroot}/usr/lib/systemd/system/easynas-firstboot.service << 'EOF'
+[Unit]
+Description=EasyNAS first-boot config seeding
+After=local-fs.target
+Before=easynas.service
+
+[Service]
+Type=oneshot
+ExecStart=/easynas/startup/firstboot.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
 # Persistent settings file (config layer). Seeded only if absent so an
 # upgrade never overwrites a user-chosen port; see %post.
 echo "EASYNAS_PORT=1443" > %{buildroot}/etc/easynas/easynas.conf
@@ -159,7 +174,6 @@ EOF
 
 
 %files
-%config(noreplace) /etc/cron.d/easynas.cron
 %config(noreplace) /etc/easynas/easynas.lang
 %config(noreplace) /etc/easynas/easynas.conf
 %config(noreplace) /etc/easynas/addons/easynas.addons
@@ -168,6 +182,7 @@ EOF
 /etc/sudoers.d/easynas
 /etc/easynas/ImageVersion
 /usr/lib/systemd/system/easynas.service
+/usr/lib/systemd/system/easynas-firstboot.service
 /easynas/easy_n_a_s.yml
 /easynas/script
 /easynas/public
@@ -225,20 +240,17 @@ EOF
 
 
 %post
-if [ ! -f /etc/easynas/easynas.cert ]; then
-    openssl req -x509 -newkey rsa:2048 \
-        -keyout /etc/easynas/easynas.key \
-        -out /etc/easynas/easynas.cert \
-        -sha256 -days 365 -nodes \
-        -subj "/C=US/ST=Oregon/O=EasyNAS/OU=Org/CN=easynas"
+systemctl enable easynas.service easynas-firstboot.service
+
+# On a live system, seed the config layer (cert, port, cron) and restart now.
+# During an image build there is no running systemd, so this is skipped and the
+# enabled firstboot service seeds at the first real boot instead -- which keeps
+# the SSL cert out of the image so every appliance gets its own (conflict #3).
+if [ -d /run/systemd/system ]; then
+    /easynas/startup/firstboot.sh
+    systemctl daemon-reload
+    systemctl restart easynas.service
 fi
-
-chown -R easynas:easynas /etc/easynas
-chown -R easynas:easynas /var/log/easynas
-
-systemctl daemon-reload
-systemctl enable easynas.service
-systemctl restart easynas.service
 
 
 %postun
