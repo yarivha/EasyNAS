@@ -1,5 +1,5 @@
 Name:           easynas
-Version:        1.1.9
+Version:        1.99
 Release:        1
 Summary:        Network Attached Storage
 License:        GPL-3.0

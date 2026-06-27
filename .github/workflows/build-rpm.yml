@@ -24,7 +24,7 @@ jobs:
             CHANNEL="stable"
           else
             VERSION=$(grep -m1 "^Version:" easynas.spec | awk '{print $2}')
-            RELEASE="68.testing.$(date +%Y%m%d%H%M%S)"
+            RELEASE="${{ github.run_number }}"
             CHANNEL="testing"
           fi
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
