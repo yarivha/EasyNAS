@@ -22,9 +22,8 @@ CHOOSE=""
 
 while [[ true ]] ; do
     IP_ADDR=$(/usr/sbin/ip address | grep " inet " | cut -d'/' -f1 | awk '{print $2}' | grep -m 1 -v 127.0.0.1)
-    INT=ifcfg-$(ls /sys/class/net/ | grep -v lo)
-    INT_DIR=$(dirname $(sudo find /etc/sysconfig/ -name 'ifcfg-lo'))
-    PORT=$(/bin/grep ExecStart /usr/lib/systemd/system/easynas.service | cut -d" " -f6 | grep -oP '(?<=[*])[^?]*')
+    PORT=$(/bin/grep '^EASYNAS_PORT=' /etc/easynas/easynas.conf 2>/dev/null | cut -d= -f2)
+    PORT=":${PORT:-1443}"
     ACTIVE=$(sudo /usr/sbin/service easynas status | grep "Active" | cut -d ":" -f2)
     clear
     echo "#########################################"
@@ -93,7 +92,7 @@ while [[ true ]] ; do
 	;;
 	
 	"5" )
-	    sudo /usr/bin/zypper update easynas*
+	    sudo /usr/bin/zypper update 'easynas*'
             read -p "Press Enter key to continue ..."
 	;;
 
