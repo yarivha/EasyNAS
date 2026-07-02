@@ -1,0 +1,49 @@
+% layout 'default';
+
+% if ($result eq "fail") {
+<div class="alert alert-danger alert-dismissable">
+<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><%= $msg %></div>
+% }
+<div class="row">
+ <div class="col-lg-8">
+  <div class="panel panel-default">
+   <div class="panel-heading">
+    <%= ($TEXT->{$addon->{'description'}}) %>
+   </div>
+   <div class="panel-body">
+    <ul class="nav nav-tabs">
+     <li class="active"><a href="#tabs-1" data-toggle="tab"><%= ($TEXT->{'nfs_on_off'}) %></a></li>
+     <li><a href="#tabs-2" data-toggle="tab"><%= ($TEXT->{'nfs_shared_vol'}) %></a></li>
+    </ul>
+   <div class="tab-content">
+    <div class="tab-pane fade in active" id="tabs-1">
+    <br><br><br>
+    <label><%= ($TEXT->{$addon->{'description'}}) %></label>
+    <br>
+    %if ($service_active) {
+     <a href="?&action=nfsoff"><i class="fa fa-toggle-on fa-3x"></i>&nbsp;</a>
+    %}
+    %else {
+     <a href="?&action=nfson"><i class="fa fa-toggle-off fa-3x"></i>&nbsp;</a>
+    %}
+</div><!-- end of #tab1 -->
+<div class="tab-pane fade" id="tabs-2">
+<table class="table table-bordered table-striped">
+ <thead>
+  <tr><th><%= ($TEXT->{'nfs_vol_name'}) %></th><th><%= ($TEXT->{'nfs_path'}) %></th><th><%= ($TEXT->{'nfs_actions'}) %></th></tr>
+ </thead>
+ <tbody>
+% foreach my $share (@$shares) {
+  <tr>
+   <td><%= $share->{vol} %></td>
+   <td><%= $share->{path} %></td>
+   <td><a onclick="return confirm('<%= ($TEXT->{'nfs_delete'}) %>')" href="?action=delete&fs=<%= $share->{fs} %>&vol=<%= $share->{vol} %>"><i class="fa fa-trash" title="<%= ($TEXT->{'nfs_delete'}) %>"></i></a></td>
+  </tr>
+% }
+ </tbody>
+</table>
+<br>
+<a href="?action=create">[<%= ($TEXT->{'nfs_add_nfs'}) %>]</a>
+</div><!-- end of #tab2 -->
+ </div><!-- end of .tab_container -->
+ </div></div></div></div>

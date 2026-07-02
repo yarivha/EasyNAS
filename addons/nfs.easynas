@@ -1,12 +1,11 @@
 <addon>
  <name>nfs</name>
- <enable>false</enable>
  <description>nfs</description>
- <version>1.0.0</version>
+ <version>1.2.0</version>
  <author>Yariv Hakim</author>
  <icon>fa-brands fa-linux</icon>
  <type>sharing</type>
- <program>nfs.pl</program>
+ <program>nfs</program>
  <config>/etc/exports</config>
- <service>easynas-nfsserver.service</service>
+ <service>nfs-server.service</service>
 </addon>

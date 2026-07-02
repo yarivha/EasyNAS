@@ -375,6 +375,9 @@ NFS addon for EasyNAS
 
 %files fs-nfs
 /easynas/addons/nfs.easynas
+/easynas/lib/EasyNAS/Controller/nfs.pm
+/easynas/templates/easynas/nfs.html.ep
+/easynas/templates/easynas/nfs_create.html.ep
 /easynas/lang/en-en/lang_english_nfs.pl
 /easynas/lang/de-de/lang_german_nfs.pl
 /easynas/lang/pt-br/lang_brazilian_portuguese_nfs.pl

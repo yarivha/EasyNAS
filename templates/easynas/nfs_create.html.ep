@@ -1,0 +1,37 @@
+% layout 'default';
+
+<div class="row">
+ <div class="col-lg-6">
+  <div class="panel panel-default">
+   <div class="panel-heading">
+    <label><%= ($TEXT->{'nfs_add_nfs'}) %></label>
+   </div>
+   <div class="panel-body">
+        <form role="form">
+         <input type=hidden name="action" value="add">
+         <div class="form-group">
+          <label><%= ($TEXT->{'nfs_vol'}) %></label>
+          <select class="form-control" name="vol">
+% foreach my $vol (sort keys %$volumes) {
+           <option value="<%= $vol %>"><%= $vol %></option>
+% }
+          </select>
+         </div>
+         <div class="form-group">
+          <label><%= ($TEXT->{'nfs_perm'}) %></label>
+          <select class="form-control" name="per">
+           <option value="rw" selected><%= ($TEXT->{'nfs_read_write'}) %></option>
+           <option value="ro"><%= ($TEXT->{'nfs_readonly'}) %></option>
+          </select>
+         </div>
+   </div>
+   <div class="panel-footer">
+   <center>
+    <button type="submit" class="btn btn-default"><%= ($TEXT->{'nfs_save'}) %></button>
+    <button type="reset" class="btn btn-default"><%= ($TEXT->{'nfs_reset'}) %></button>
+   </center>
+   </form>
+    </div>
+   </div>
+ </div>
+</div>
