@@ -270,7 +270,6 @@ fi
 %package        srv-lxc
 Version:        %{version}
 Summary:        Virtualization addon for EasyNAS
-Release:        0
 Group:          easynas/addon
 Requires:       easynas >= %{version}
 Requires:       lxc
@@ -292,7 +291,6 @@ Virtualization addon for EasyNAS
 %package        srv-mariadb
 Version:        %{version}
 Summary:        MariaDB addon for EasyNAS
-Release:        0
 Group:          easynas/addon
 Requires:       easynas >= %{version}
 
@@ -308,7 +306,6 @@ MariaDB addon for EasyNAS
 %package        fs-tftp
 Version:        %{version}
 Summary:        TFTP addon for EasyNAS
-Release:        0
 Group:          easynas/addon
 Requires:       easynas >= %{version}
 Requires:       tftp
@@ -329,7 +326,6 @@ TFTP addon for EasyNAS
 %package        fs-afp
 Version:        %{version}
 Summary:        AFP addon for EasyNAS
-Release:        0
 Group:          easynas/addon
 Requires:       easynas >= %{version}
 Requires:       netatalk
@@ -350,7 +346,6 @@ AFP addon for EasyNAS
 %package        fs-ftp
 Version:        %{version}
 Summary:        FTP addon for EasyNAS
-Release:        0
 Group:          easynas/addon
 Requires:       easynas >= %{version}
 Requires:       pureftpd
@@ -371,7 +366,6 @@ FTP addon for EasyNAS
 %package        fs-nfs
 Version:        %{version}
 Summary:        NFS addon for EasyNAS
-Release:        0
 Group:          easynas/addon
 Requires:       easynas >= %{version}
 Requires:       nfs-kernel-server
@@ -392,7 +386,6 @@ NFS addon for EasyNAS
 %package        fs-samba
 Version:        %{version}
 Summary:        SAMBA addon for EasyNAS
-Release:        0
 Group:          easynas/addon
 Requires:       easynas >= %{version}
 Requires:       samba
@@ -415,7 +408,6 @@ SAMBA addon for EasyNAS
 %package        fs-ssh
 Version:        %{version}
 Summary:        SSH addon for EasyNAS
-Release:        0
 Group:          easynas/addon
 Requires:       easynas >= %{version}
 Requires:       openssh
@@ -436,7 +428,6 @@ SSH addon for EasyNAS
 %package        mm-dlna
 Version:        %{version}
 Summary:        DLNA addon for EasyNAS
-Release:        0
 Group:          easynas/addon
 Requires:       easynas >= %{version}
 Requires:       minidlna
@@ -458,7 +449,6 @@ DLNA addon for EasyNAS
 %package        mm-plex
 Version:        %{version}
 Summary:        PLEX addon for EasyNAS
-Release:        0
 Group:          easynas/addon
 Requires:       easynas >= %{version}
 Requires:       plexmediaserver
@@ -476,7 +466,6 @@ Plex Server addon for EasyNAS
 %package        fs-rsyncd
 Version:        %{version}
 Summary:        RSyncd addon for EasyNAS
-Release:        0
 Group:          easynas/addon
 Requires:       easynas >= %{version}
 Requires:       rsync
@@ -497,7 +486,6 @@ RSyncd addon for EasyNAS
 %package        srv-radius
 Version:        %{version}
 Summary:        Radius addon for EasyNAS
-Release:        0
 Group:          easynas/addon
 Requires:       easynas >= %{version}
 Requires:       freeradius-server
@@ -518,7 +506,6 @@ Radius addon for EasyNAS
 %package        stg-iscsi
 Version:        %{version}
 Summary:        iSCSI Initiator addon for EasyNAS
-Release:        0
 Group:          easynas/addon
 Requires:       easynas >= %{version}
 Requires:       tgt
@@ -536,7 +523,6 @@ iSCSI addon for EasyNAS
 %package        lang-german
 Version:        %{version}
 Summary:        German Language for EasyNAS
-Release:        0
 Group:          easynas/lang
 Requires:       easynas >= %{version}
 
@@ -552,7 +538,6 @@ German Language for EasyNAS
 %package        lang-portuguese
 Version:        %{version}
 Summary:        Portuguese Language for EasyNAS
-Release:        0
 Group:          easynas/lang
 Requires:       easynas >= %{version}
 
@@ -568,7 +553,6 @@ Portuguese Language for EasyNAS
 %package        lang-chinese
 Version:        %{version}
 Summary:        Simplified Chinese Language for EasyNAS
-Release:        0
 Group:          easynas/lang
 Requires:       easynas >= %{version}
 
@@ -584,7 +568,6 @@ Simplified Chinese Language for EasyNAS
 %package        lang-polish
 Version:        %{version}
 Summary:        Polish Language for EasyNAS
-Release:        0
 Group:          easynas/lang
 Requires:       easynas >= %{version}
 
